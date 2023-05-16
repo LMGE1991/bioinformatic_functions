@@ -1,0 +1,45 @@
+# Here starts the utils.R document which is only the function called getGtMat
+# gdsHandle argument of the function is replaced with gdsFilteredHandle for practice purposes
+
+gdsHandle <- gdsFilteredHandle
+
+sampIDs <- SeqArray::seqGetData(gdsHandle,"sample.id")
+varIDs <- paste0("varID:",SeqArray::seqGetData(gdsHandle,"variant.id"),"_chr:",SeqArray::seqGetData(gdsHandle,"chromosome"),"_pos:",SeqArray::seqGetData(gdsHandle,"position"))
+nSamps <- sampIDs %>% length
+nVars <- varIDs %>% length
+gtm <- seqGet2bGeno(gdsHandle) #Gets a RAW matrix of genotypes in a packed 2-bit format.
+gtMat <- matrix(NA_integer_,nrow=nVars,ncol=nSamps) # Matrix of genotypes in a standard readable format
+
+
+#______________________________________________________Tim's functions_______________________________________________
+#echo to the global environment. good warning messager. still doesn't work in mclappy, hashtag doh
+#ce("beans ",list("hello "," goodbye")," whatever")
+ce <- function(...){   cat(paste0(...,"\n"), sep='', file=stderr()) %>% eval(envir = globalenv() ) %>% invisible() }
+#____________________________________________________________________________________________________________________
+
+l_ply(1:nVars,function(varIdx){
+  
+  #ce( "Begin variant ", varIdx , "/" , nVars , " (" , round((varIdx/nVars)*100,2) , "%)" )
+  
+  # Initialise aux matrix
+  auxMat <- matrix(NA,ncol=ceiling(nSamps/4),nrow=8)
+  
+  # Fill aux mat with packed bits (first col = first four sample gts, two bits each)
+  l_ply(1:8,function(row){ #dev col <- 1;
+    b <- 2**(row-1) #bit
+    auxMat[row,] <<- (as.raw(b) & gtm[,varIdx]) == as.raw(b)  # bitwise AND operation ( each bit in the first operand is compared with the corresponding bit in the second operand. If both bits are 1, the corresponding result bit is set to 1. Otherwise, the result bit is set to 0.)
+  })
+  
+  # read aux matrix, infer gts, fill gtMat
+  l_ply(1:ceiling(nSamps/4),function(j_samp4group){ #dev j_samp4group<-10
+    l_ply(1:4,function(sampInGrp){ #dev sampInGrp<-3
+      i <- sampInGrp*2 - 1
+      sampIdx <- (j_samp4group-1)*4 + sampInGrp
+      #varIdx defined already
+      if(sampIdx>nSamps){return(NULL)}
+      gtMat[varIdx,sampIdx] <<- (1*auxMat[i,j_samp4group] + 2*auxMat[i+1,j_samp4group])
+    })
+  })
+})
+
+gtMat[gtMat==3] <- NA_integer_
