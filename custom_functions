@@ -1,4 +1,5 @@
-# Here starts the utils.R document which is only the function called getGtMat
+#______________________________________________________________________________________________________ 16/May/2023________________________________________________________________________________________
+# This function is found in utils.R document which is only the function called getGtMat()
 # gdsHandle argument of the function is replaced with gdsFilteredHandle for practice purposes
 
 gdsHandle <- gdsFilteredHandle
