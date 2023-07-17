@@ -1,0 +1,32 @@
+#Setting up a script to read multiple CSV files and consolidate their data into a single DataFrame called data3.
+
+path = os.getcwd()
+path
+
+file_list = glob.glob(path + "/*.csv")  #Returns a list of file paths that match the patter "/*.csv"
+csv_list = []  #initiallize empty list to store the CSV files
+data3=pd.DataFrame() #create an empty data frame using pandas
+
+# list of csv files we want to merge.
+# pd.read_csv(file_path) reads the csv data into pandas dataframe
+# inserting a column in position 0 with constant value of variable my_string
+
+for file in file_list:
+    my_string = file[-9:-4]
+    a_data=pd.read_csv(file, skiprows=2, header=None, index_col=0, usecols=[0,1,2])
+    b_data=pd.DataFrame(a_data)
+    b_data.insert(0,None,my_string)
+    csv_list.append(b_data)
+
+# appends data into one single data frame 'data3'
+for csv_file in csv_list:
+    data3 = data3.append(csv_file)
+
+#check:
+data3
+
+#save file:
+data3.to_excel('DL_merged.xlsx', index=False)
+
+
+________________________________________________________________________
