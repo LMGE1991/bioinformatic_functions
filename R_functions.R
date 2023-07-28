@@ -1,6 +1,3 @@
-https://raw.githubusercontent.com/mtrw/tim_r_functions/master/tim_functions.R
-
-
 #create an empty plot with ranges x=c(low,high) and y=ditto
 null_plot <- function(x,y,xlab=NA,ylab=NA,revx=F,revy=F,...){
   xl<-range(x,na.rm=T)
