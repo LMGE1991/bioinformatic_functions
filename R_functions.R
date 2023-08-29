@@ -1,3 +1,14 @@
+
+plist <- c("tidyverse", "janitor", "readxl", "lme4","lmerTest","emmeans","performance","broom.mixed","spdep","spatialreg","raster","nlme")  
+for(p in plist){
+  if(! p %in% installed.packages()){
+    install.packages(p)
+  }
+}
+for(p in plist){
+  require(p,character.only = T)
+}
+
 #create an empty plot with ranges x=c(low,high) and y=ditto
 null_plot <- function(x,y,xlab=NA,ylab=NA,revx=F,revy=F,...){
   xl<-range(x,na.rm=T)
