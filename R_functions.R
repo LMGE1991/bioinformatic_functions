@@ -1,5 +1,5 @@
 
-plist <- c("tidyverse", "janitor", "readxl", "lme4","lmerTest","emmeans","performance","broom.mixed","spdep","spatialreg","raster","nlme")  
+plist <- c("tidyverse", "janitor", "readxl", "lme4","lmerTest","emmeans","performance","broom.mixed","spdep","spatialreg","raster","nlme","writexl")  
 for(p in plist){
   if(! p %in% installed.packages()){
     install.packages(p)
