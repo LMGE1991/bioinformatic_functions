@@ -41,5 +41,35 @@ eq <- function(x, y) {
 }
 
 
+############ QQ plot manually created. Residuals must be extracted and added as a new column in the original data frame from which the linear model was built on.
+############ Usage example:
+############ manual_qq_plot(df_summary2, "residuals")
+manual_qq_plot <- function(df, column_name) {
+  # Calculate standard deviation of residuals, ignoring NAs
+  std_dev_residuals <- sd(df[[column_name]], na.rm = TRUE)
+    # Normalize the data by standard deviation
+  my_data <- df[[column_name]] / std_dev_residuals
+    # Remove NAs
+  my_data <- my_data[!is.na(my_data)]
+    # Calculate observed quantiles (sort your data)
+  observed_quantiles <- sort(my_data)
+    # Calculate theoretical quantiles
+  n <- length(my_data)  # Number of data points
+  theoretical_quantiles <- qnorm((1:n - 0.5) / n)
+    # Create the plot with equal x and y limits
+  plot(theoretical_quantiles, observed_quantiles, 
+       xlab = "Theoretical Quantiles", 
+       ylab = "Observed Quantiles", 
+       main = "QQ Plot",
+       xlim = range(c(theoretical_quantiles, observed_quantiles)),
+       ylim = range(c(theoretical_quantiles, observed_quantiles))
+  )
+    # Add a 45-degree line
+  abline(0, 1, col = "red")
+}
+
+
+
+
 
 
