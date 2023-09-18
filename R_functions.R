@@ -21,6 +21,7 @@ null_plot <- function(x,y,xlab=NA,ylab=NA,revx=F,revy=F,...){
 #correlation coefficient R^2__________________________________________
 #This function takes two arguments, x and y, which represent the predictor and response variables, respectively. 
 #The function calculates a linear regression model using lm() and then constructs a formatted equation string that displays the linear regression equation, coefficients, and R-squared value.
+#add this in ggplot: "+geom_text(x=-2.5, y=0.2, label = eq2(df_3$Tc_Ta,df_3$gsw), parse = TRUE, colour="gray33")+"
 eq <- function(x, y) {
   m <- lm(y ~ x)  # Fit a linear regression model of y ~ x
   # Create a formatted equation string
