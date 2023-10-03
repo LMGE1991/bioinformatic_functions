@@ -69,8 +69,32 @@ manual_qq_plot <- function(df, column_name) {
   abline(0, 1, col = "red")
 }
 
+################### Error propagation for MP index: 
+# First get sample data
+sample_data <- data.frame(
+  Genotype = c("001", "001", "002", "002"),
+  Treatment = c("Drought", "Irrigated", "Drought", "Irrigated"),
+  estimated_mean = c(2, 3, 4, 2),
+  standard_error = c(0.5, 0.2, 0.1, 0.3)
+)
 
+# Split data by genotype
+split_data_sample <- split(sample_data, sample_data$Genotype)
 
+# Propagation of errors
+# Function to calculate MP tolerance index and its error for each genotype
+calculate_MP <- function(genotype_data){
+  Ypi <- genotype_data$estimated_mean[genotype_data$Treatment == "Irrigated"]
+  Ysi <- genotype_data$estimated_mean[genotype_data$Treatment == "Drought"]
+  sigma_pi <- genotype_data$standard_error[genotype_data$Treatment == "Irrigated"]
+  sigma_si <- genotype_data$standard_error[genotype_data$Treatment == "Drought"]
+  MP <- (Ypi + Ysi) / 2
+  MP_error <- sqrt((sigma_pi^2 + sigma_si^2) / 4)
+  return(data.frame(Genotype = unique(genotype_data$Genotype), MP = MP, MP_error = MP_error))
+}
+
+# Apply the function to each genotype
+MP_index <- do.call(rbind, lapply(split_data_sample, calculate_MP))
 
 
 
