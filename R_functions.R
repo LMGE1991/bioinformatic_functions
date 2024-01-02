@@ -1,5 +1,31 @@
 
-plist <- c("dplyr","lmerTest","performance","parameters","tidyverse", "janitor", "readxl", "lme4","lmerTest","emmeans","performance","broom.mixed","spdep","spatialreg","raster","nlme","openxlsx","data.table")  
+plist <- c("dplyr",
+           "lmerTest",
+           "performance",
+           "parameters",
+           "tidyverse", 
+           "janitor", 
+           "readxl", 
+           "lme4",
+           "lmerTest",
+           "emmeans",
+           "performance",
+           "broom.mixed",
+           "spdep",
+           "spatialreg",
+           "raster",
+           "nlme",
+           "openxlsx",
+           "data.table",
+           "tsne",
+           "scatterplot3d",
+           "plotly",
+           "pheatmap",
+           "dendextend",
+           "Hmisc",
+           "corrplot",
+           "plyr"
+          )  
 for(p in plist){
   if(! p %in% installed.packages()){
     install.packages(p)
