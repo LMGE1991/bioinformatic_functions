@@ -24,7 +24,8 @@ plist <- c("dplyr",
            "dendextend",
            "Hmisc",
            "corrplot",
-           "plyr"
+           "plyr",
+           "kableExtra"
           )  
 for(p in plist){
   if(! p %in% installed.packages()){
