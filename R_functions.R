@@ -129,6 +129,8 @@ MP_index <- do.call(rbind, lapply(split_data_sample, calculate_MP))
 ## are designed to be used as a custom panel functions in a pairs plot 
 ## (e.g., created with the pairs() function in R). 
 ## Its primary purpose is to display the correlation coefficient between two variables in the cells of the upper or lower triangle of a pairs plot matrix.
+## See for more details: https://r-graphics.org/recipe-scatter-splom
+
 
 panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...) { # x and y are the pairs of variables for which the correlation will be calculated and displayed. 'cex.cor' is a character expansion factor for the correlation coefficient text, determining its size. If it's not provided, it will be calculated based on the text width.
   usr <- par("usr")
