@@ -55,7 +55,7 @@ eq <- function(x, y) {
   formatted_eq <- as.character(
     as.expression(
       substitute(
-        italic(y) == a + b %.% italic(x) * "," ~~ italic(r)^2 ~ "=" ~ r2,
+        #italic(y) == a + b %.% italic(x) * "," ~~ italic(r)^2 ~ "=" ~ r2,
         list(
           #a = format(coef(m)[1], digits = 4),                 # Format coefficient a
           #b = format(coef(m)[2], digits = 4),                 # Format coefficient b
