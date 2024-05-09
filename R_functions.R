@@ -68,13 +68,6 @@ eq <- function(x, y) {
   return(formatted_eq)  # Return the formatted equation string
 }
 
-eq2 <- function(x, y) {
-  m <- lm(y ~ x)  # Fit a linear regression model of y ~ x
-  # Extract R-squared value
-  r2 <- format(summary(m)$r.squared, digits = 3)  # Format R-squared value
-
-  return(r2)  # Return the formatted R-squared value
-}
 
 
 ############ QQ plot manually created. Residuals must be extracted and added as a new column in the original data frame from which the linear model was built on.
