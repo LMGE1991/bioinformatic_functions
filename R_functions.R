@@ -58,8 +58,8 @@ eq <- function(x, y) {
       substitute(
         italic(y) == a + b %.% italic(x) * "," ~~ italic(r)^2 ~ "=" ~ r2,
         list(
-          a = format(coef(m)[1], digits = 4),                 # Format coefficient a
-          b = format(coef(m)[2], digits = 4),                 # Format coefficient b
+          #a = format(coef(m)[1], digits = 4),                 # Format coefficient a
+          #b = format(coef(m)[2], digits = 4),                 # Format coefficient b
           r2 = format(summary(m)$r.squared, digits = 3)      # Format R-squared value
         )
       )
