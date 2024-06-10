@@ -155,3 +155,21 @@ panel.hist <- function(x, ...) {
   rect(breaks[-nB], 0, breaks[-1], y, col = "white", ...)
 }
 
+####### Format p.value columns 
+# use it like this: CTD_stats$p.value_format <- sapply(CTD_stats$p.value, format_p_value)
+
+format_p_value <- function(p) {
+  if (is.na(p)) {
+    return(NA)
+  }
+  formatted_p <- formatC(p, format = "f", digits = 3)
+  if (p < 0.001) {
+    return(paste0(formatted_p, "***"))
+  } else if (p < 0.01) {
+    return(paste0(formatted_p, "**"))
+  } else if (p < 0.05) {
+    return(paste0(formatted_p, "*"))
+  } else {
+    return(formatted_p)
+  }
+}
