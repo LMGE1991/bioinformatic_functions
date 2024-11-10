@@ -173,3 +173,21 @@ format_p_value <- function(p) {
     return(formatted_p)
   }
 }
+
+# Here "p" is a numeric vector. Usually is the p.value column of the z1 or z_con data frame generated with emmeans()
+format_p_value_2 <- function(p) { 
+  if (is.na(p)) {
+    return(NA)
+  }
+  formatted_p <- formatC(p, format = "f", digits = 3)
+  if (p < 0.001) {
+    return(paste0("***"))
+  } else if (p < 0.01) {
+    return(paste0("**"))
+  } else if (p < 0.05) {
+    return(paste0("*"))
+  } else {
+    return(NA)
+  }
+}
+
