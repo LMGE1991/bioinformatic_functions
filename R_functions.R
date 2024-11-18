@@ -85,7 +85,25 @@ eq2 <- function(x, y) {
   return(formatted_r2)
 }
 
-
+## This one provides the equation only:
+eq3 <- function(x, y) {
+  m <- lm(y ~ x)  # Fit a linear regression model of y ~ x
+  
+  # Extract coefficients and R-squared
+  a <- format(coef(m)[1], digits = 4)  # Intercept
+  b <- format(coef(m)[2], digits = 4)  # Slope
+  r2 <- format(summary(m)$r.squared, digits = 3)  # R-squared
+  
+  # Create the equation and R-squared strings
+  equation <- paste0("italic(y) == ", a, " + ", b, " %.% italic(x)")
+  r_squared <- paste0("italic(r)^2 == ", r2)
+  
+  # Combine into a two-line string with newline character
+  formatted <- paste0(equation, "\n", r_squared)
+  
+  # Return the formatted equation as an expression for plotting
+  return(as.expression(formatted))
+}
 
 
 
