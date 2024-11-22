@@ -228,3 +228,20 @@ format_p_value_2 <- function(p) {
   }
 }
 
+format_p_value_3 <- function(p) {
+  if (is.na(p)) {
+    return(NA)
+  }
+  formatted_p <- formatC(p, format = "f", digits = 3)
+  if (p < 0.001) {
+    return(paste("<0.001", "***"))
+  } else if (p < 0.01) {
+    return(paste("<.01", "**"))
+  } else if (p < 0.05) {
+    return(paste(formatted_p, "*"))
+  } else {
+    return(formatted_p)
+  }
+}
+
+
